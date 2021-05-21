@@ -1,7 +1,11 @@
 package ui;
 
+import business.ContactBusiness;
+import repository.entity.ContactEntity;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class MainForm extends JFrame {
     private JPanel rootPanel;
@@ -9,6 +13,7 @@ public class MainForm extends JFrame {
     private JButton buttonCancelAccount;
     private JTable tableContact;
 
+    private ContactBusiness mContactBusiness;
     public MainForm() {
         /*configurações iniciais do programa*/
         setContentPane(rootPanel);
@@ -24,6 +29,14 @@ public class MainForm extends JFrame {
 
 
         setListeners();
+        loadContacts();
+    }
+
+    private void loadContacts() {
+        mContactBusiness = new ContactBusiness();
+        List<ContactEntity> contactEntityList = mContactBusiness.getList();
+
+        mContactBusiness.getList();
     }
 
     private void setListeners() {
