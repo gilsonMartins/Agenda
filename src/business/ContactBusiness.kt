@@ -6,6 +6,8 @@ import java.lang.Exception
 
 class ContactBusiness {
 
+
+
     private fun validate(name: String, phone: String) {
         if (name.isEmpty() && phone.isEmpty()) throw Exception("Nome e telefone é obrigatório")
     }
@@ -15,7 +17,14 @@ class ContactBusiness {
             throw Exception("É necessario selecionar um contato antes de remover.")
         }
     }
-
+    fun contactDescription(): String{
+        val list = getList()
+        return when{
+            list.isEmpty() -> "0 Contatos"
+            list.size == 1 -> "1 contato"
+            else -> "${list.size} contatos"
+        }
+    }
     fun save(name: String, phone: String) {
         val contact = ContactEntity(name, phone)
         validate(name, phone)
