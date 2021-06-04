@@ -1,5 +1,7 @@
 package ui;
 
+import business.ContactBusiness;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,7 +12,7 @@ public class ContactForm extends JFrame {
     private JButton buttonSave;
     private JButton buttonCancel;
     private JTextField textFieldName;
-
+    private ContactBusiness mContactBusiness;
     public ContactForm() {
         setContentPane(rootPanel);
         setSize(550, 250);
@@ -24,25 +26,34 @@ public class ContactForm extends JFrame {
         /*função para fechar o programa*/
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-
+        mContactBusiness = new ContactBusiness();
         setListeners();
     }
 
     private void setListeners() {
         buttonSave.addActionListener(e -> {
+            try{
+                String name = textFieldName.getText();
+                String phone = textFieldPhone.getText();
 
+                mContactBusiness.save(name, phone);
             /*
             metodo invocar nova classe
             */
-            new MainForm();
+                new MainForm();
 
             /*
             realizar a invocação da nova tela
             */
-            dispose();
+                dispose();
+            }catch (Exception exception){
+                JOptionPane.showMessageDialog(new JFrame(), exception.getMessage());
+            }
+
         });
         buttonCancel.addActionListener(e -> {
 //            setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
         });
     }
+
 }

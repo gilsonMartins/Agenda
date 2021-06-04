@@ -9,7 +9,7 @@ class ContactBusiness {
 
 
     private fun validate(name: String, phone: String) {
-        if (name.isEmpty() && phone.isEmpty()) throw Exception("Nome e telefone é obrigatório")
+        if (name.isEmpty() || phone.isEmpty()) throw Exception("Nome e telefone é obrigatório")
     }
 
     private fun validateDelete(name: String,phone: String){
