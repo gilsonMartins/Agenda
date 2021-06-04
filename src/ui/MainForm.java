@@ -4,6 +4,8 @@ import business.ContactBusiness;
 import repository.entity.ContactEntity;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
@@ -14,6 +16,8 @@ public class MainForm extends JFrame {
     private JButton buttonCancelAccount;
     private JTable tableContact;
     private JLabel labelContactCount;
+    private String name= "";
+    private String phone = "";
 
     private ContactBusiness mContactBusiness;
     public MainForm() {
@@ -66,7 +70,26 @@ public class MainForm extends JFrame {
             realizar a invocação da nova tela
             */
             dispose();
+
         });
-        buttonCancelAccount.addActionListener(e -> setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE));
+        tableContact.getSelectionModel().addListSelectionListener(e1 -> {
+            if (e1.getValueIsAdjusting()){
+                if (tableContact.getSelectedRow() != -1 ){
+                    name =tableContact.getValueAt(tableContact.getSelectedRow(), 0 ).toString();
+                    phone =tableContact.getValueAt(tableContact.getSelectedRow(), 1).toString();
+                }
+            }
+        });
+        buttonCancelAccount.addActionListener(e -> {
+            try {
+
+                mContactBusiness.delete(name, phone);
+                loadContacts();
+                name = "";
+                phone = "";
+            }catch (Exception exception){
+                JOptionPane.showMessageDialog(new JFrame(), exception.getMessage());
+            }
+        });
     }
 }

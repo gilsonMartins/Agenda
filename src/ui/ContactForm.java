@@ -52,7 +52,8 @@ public class ContactForm extends JFrame {
 
         });
         buttonCancel.addActionListener(e -> {
-//            setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
+            new MainForm();
+            dispose();
         });
     }
 
